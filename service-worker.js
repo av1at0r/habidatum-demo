@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/habidatum-demo/precache-manifest.d4b5800f09b10c1dab19079c48e0d9b4.js"
+  "/habidatum-demo/precache-manifest.faea972fac338d9fe9a4742809fa2186.js"
 );
 
 self.addEventListener('message', (event) => {
