@@ -4,6 +4,7 @@ import { BikeRidesMap } from "../components/BikeRidesMap";
 import { BikeRidesTableHeader } from "../components/BikeRidesTableHeader";
 import { BikeRidesTableRow } from "../components/BikeRidesTableRow";
 import useBikeRidesData from "../hooks/useBikeRidesData";
+import { BikeRideTransformed } from "../interfaces/bike-rides.interfaces";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -35,10 +36,10 @@ export default function BikeRidesView() {
   const { data } = useBikeRidesData();
 
   const classes = useStyles();
-  const [selectedRideIndex, setSelectedRideIndex] = useState<number>();
+  const [selectedRide, setSelectedRide] = useState<BikeRideTransformed>();
 
   const clearSelection = useCallback(() => {
-    setSelectedRideIndex(undefined);
+    setSelectedRide(undefined);
   }, []);
 
   return (
@@ -49,10 +50,9 @@ export default function BikeRidesView() {
           <TableBody>
             {data?.data.map((item, index) => (
               <BikeRidesTableRow
-                index={index}
                 key={`${item.starttime.toISOString()} ${item.bikeid}`}
                 ride={item}
-                onMouseEnter={setSelectedRideIndex}
+                onMouseEnter={setSelectedRide}
                 onMouseLeave={clearSelection}
               />
             ))}
@@ -63,7 +63,7 @@ export default function BikeRidesView() {
         <BikeRidesMap
           rides={data?.data}
           className={classes.map}
-          selectedRideIndex={selectedRideIndex}
+          selectedRide={selectedRide}
         />
       </div>
     </div>

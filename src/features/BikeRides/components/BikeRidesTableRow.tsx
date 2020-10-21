@@ -5,14 +5,14 @@ import { BikeRideTransformed } from "../interfaces/bike-rides.interfaces";
 
 type Props = {
   ride: BikeRideTransformed;
-  index: number;
-  onMouseEnter: (index: number) => void;
+
+  onMouseEnter: (ride: BikeRideTransformed) => void;
   onMouseLeave: () => void;
 };
 
 export const BikeRidesTableRow = ({
   ride,
-  index,
+
   onMouseEnter,
   onMouseLeave,
 }: Props) => {
@@ -25,8 +25,8 @@ export const BikeRidesTableRow = ({
   );
 
   const handleMouseEnter = useCallback(() => {
-    onMouseEnter(index);
-  }, [index, onMouseEnter]);
+    onMouseEnter(ride);
+  }, [onMouseEnter, ride]);
 
   return (
     <TableRow onMouseEnter={handleMouseEnter} onMouseLeave={onMouseLeave}>

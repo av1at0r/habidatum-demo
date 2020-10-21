@@ -1,151 +1,71 @@
-import mapboxgl, { LngLatLike } from "mapbox-gl";
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
+import ReactMapGL from "react-map-gl";
 import { mapboxToken } from "../../../constants";
-import useMap from "../../Map/hooks/useMap";
-import { PointSource } from "../../Map/hooks/usePointsSource";
-import useBikePoints from "../hooks/useBikePoints";
+import useMapViewport from "../../Map/hooks/useMapViewport";
+import useBikeRidesCenter from "../hooks/useBikeRidesCenter";
 import { BikeRideTransformed } from "../interfaces/bike-rides.interfaces";
+import BikeHighlightedPointsLayer from "./BikeHighlightedPointsLayer";
+import BikePointsLayer from "./BikePointsLayer";
+import BikePointsSource from "./BikePointsSource";
+import { BikeStationsNamesLayer } from "./BikeStationsNamesLayer";
 
-mapboxgl.accessToken = mapboxToken;
-
-interface Props extends React.HTMLAttributes<HTMLElement> {
+interface Props {
   rides?: BikeRideTransformed[];
-  selectedRideIndex?: number;
+  selectedRide?: BikeRideTransformed;
+  className?: string;
 }
 
 const defaultRides: BikeRideTransformed[] = [];
 
 export const BikeRidesMap = ({
   rides = defaultRides,
-  selectedRideIndex,
-  ...props
+  selectedRide,
+  className,
 }: Props) => {
-  const { map, mapContainer, loaded } = useMap<HTMLDivElement>({
-    style: "mapbox://styles/mapbox/streets-v11",
-  });
+  const {
+    viewState,
+    handleViewChanged,
+    setPartialViewportState,
+  } = useMapViewport({ zoom: 11 });
 
-  const center: LngLatLike | undefined = useMemo(() => {
-    if (rides.length === 0) {
-      return;
+  const center = useBikeRidesCenter(rides);
+  useEffect(() => {
+    if (center) {
+      setPartialViewportState(center);
     }
-    const longs = [
-      ...rides.map((item) => item.startStationLongitude),
-      ...rides.map((item) => item.endStationLongitude),
-    ];
-    const lats = [
-      ...rides.map((item) => item.startStationLatitude),
-      ...rides.map((item) => item.endStationLatitude),
-    ];
-    const minLong = Math.min(...longs);
-    const maxLong = Math.max(...longs);
+  }, [center, setPartialViewportState]);
 
-    const minLat = Math.min(...lats);
-    const maxLat = Math.max(...lats);
-
-    const center: LngLatLike = {
-      lon: minLong + (maxLong - minLong) / 2,
-      lat: minLat + (maxLat - minLat) / 2,
-    };
-    return center;
-  }, [rides]);
-
-  const { minRideDuration, maxRideDuration } = useMemo(() => {
-    const minRideDuration = Math.min(...rides.map((item) => item.tripduration));
-    const maxRideDuration = Math.max(...rides.map((item) => item.tripduration));
-
-    return { minRideDuration, maxRideDuration };
-  }, [rides]);
-
-  const getRideSсale = useCallback(
-    (rideDuration: number) => {
-      return (
-        ((rideDuration - minRideDuration) /
-          (maxRideDuration - minRideDuration)) *
-          (2 - 1) +
-        1
-      );
-    },
-    [maxRideDuration, minRideDuration]
+  const selectedRidesData = useMemo(
+    () => (selectedRide ? [selectedRide] : undefined),
+    [selectedRide]
   );
 
-  useEffect(() => {
-    if (map.current && center) {
-      map.current.setZoom(13);
-      map.current.setCenter(center);
-    }
-  }, [center, map, rides, rides.length]);
-
-  const {
-    setHighlightedPointScale,
-    points,
-    highlightedPoints,
-  } = useBikePoints({ map, loaded });
-
-  useEffect(() => {
-    if (typeof selectedRideIndex === "undefined") {
-      return;
-    }
-    const ride = rides[selectedRideIndex];
-    setHighlightedPointScale(getRideSсale(ride.tripduration));
-  }, [getRideSсale, rides, selectedRideIndex, setHighlightedPointScale]);
-
-  useEffect(() => {
-    if (!loaded) {
-      return;
-    }
-    const coordinates: Array<PointSource> = [];
-    const highlightedCoordinates: Array<PointSource> = [];
-    rides.forEach((ride, index) => {
-      if (index === selectedRideIndex) {
-        highlightedCoordinates.push({
-          coordinates: {
-            lat: ride.startStationLatitude,
-            lon: ride.startStationLongitude,
-          },
-          properties: {
-            title: ride.startStationName,
-          },
-        });
-        highlightedCoordinates.push({
-          coordinates: {
-            lat: ride.endStationLatitude,
-            lon: ride.endStationLongitude,
-          },
-          properties: {
-            title: ride.endStationName,
-          },
-        });
-      } else {
-        coordinates.push({
-          coordinates: {
-            lat: ride.startStationLatitude,
-            lon: ride.startStationLongitude,
-          },
-          properties: {
-            title: "",
-          },
-        });
-        coordinates.push({
-          coordinates: {
-            lat: ride.endStationLatitude,
-            lon: ride.endStationLongitude,
-          },
-          properties: {
-            title: "",
-          },
-        });
-      }
-    });
-    points.setPoints(coordinates);
-    highlightedPoints.setPoints(highlightedCoordinates);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    highlightedPoints.setPoints,
-    loaded,
-    points.setPoints,
-    rides,
-    selectedRideIndex,
-  ]);
-
-  return <div {...props} ref={mapContainer} />;
+  return (
+    <ReactMapGL
+      {...viewState}
+      mapboxApiAccessToken={mapboxToken}
+      mapStyle="mapbox://styles/mapbox/streets-v11"
+      width="100%"
+      height="100%"
+      className={className}
+      onViewStateChange={handleViewChanged}
+    >
+      <BikePointsSource rides={rides}>
+        <BikePointsLayer />
+      </BikePointsSource>
+      {selectedRidesData && selectedRide && (
+        <>
+          <BikePointsSource rides={selectedRidesData}>
+            <BikeHighlightedPointsLayer
+              rides={rides}
+              selectedRide={selectedRide}
+            />
+          </BikePointsSource>
+          <BikePointsSource rides={selectedRidesData}>
+            <BikeStationsNamesLayer />
+          </BikePointsSource>
+        </>
+      )}
+    </ReactMapGL>
+  );
 };
