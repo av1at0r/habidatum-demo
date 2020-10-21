@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/habidatum-demo/static/js/main.08fd32e6.chunk.js",
+    "main.js.map": "/habidatum-demo/static/js/main.08fd32e6.chunk.js.map",
+    "runtime-main.js": "/habidatum-demo/static/js/runtime-main.5eac44f2.js",
+    "runtime-main.js.map": "/habidatum-demo/static/js/runtime-main.5eac44f2.js.map",
+    "static/js/2.1279719b.chunk.js": "/habidatum-demo/static/js/2.1279719b.chunk.js",
+    "static/js/2.1279719b.chunk.js.map": "/habidatum-demo/static/js/2.1279719b.chunk.js.map",
+    "index.html": "/habidatum-demo/index.html",
+    "precache-manifest.d4b5800f09b10c1dab19079c48e0d9b4.js": "/habidatum-demo/precache-manifest.d4b5800f09b10c1dab19079c48e0d9b4.js",
+    "service-worker.js": "/habidatum-demo/service-worker.js",
+    "static/js/2.1279719b.chunk.js.LICENSE.txt": "/habidatum-demo/static/js/2.1279719b.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5eac44f2.js",
+    "static/js/2.1279719b.chunk.js",
+    "static/js/main.08fd32e6.chunk.js"
+  ]
+}
