@@ -70,7 +70,7 @@ export const BikeRidesMap = ({
 
   useEffect(() => {
     if (map.current && center) {
-      map.current.setZoom(11);
+      map.current.setZoom(13);
       map.current.setCenter(center);
     }
   }, [center, map, rides, rides.length]);
