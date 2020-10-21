@@ -1,5 +1,5 @@
 import { parse, ParseResult } from "papaparse";
-import { useQuery } from "react-query";
+import { useEffect, useState } from "react";
 import camelize from "../../../utils/camelize";
 import createCsvTransformerFunction from "../../../utils/createCsvTransformerFunction";
 import { bikesTransformFunctions } from "../data/bikesTransformFunctions";
@@ -24,7 +24,9 @@ function fetchBikeRidesData() {
 }
 
 export default function useBikeRidesData() {
-  return useQuery([BIKE_RIDES_KEY], fetchBikeRidesData, {
-    staleTime: Infinity,
-  });
+  const [data, setData] = useState<ParseResult<BikeRideTransformed>>();
+  useEffect(() => {
+    fetchBikeRidesData().then((result) => setData(result));
+  }, []);
+  return { data };
 }
