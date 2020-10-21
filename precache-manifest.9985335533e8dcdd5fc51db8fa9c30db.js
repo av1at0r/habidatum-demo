@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ead356d2b2de172126ac4d369455fcd4",
+    "revision": "d610a5e155829b71339119568e15d52c",
     "url": "/habidatum-demo/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/habidatum-demo/static/js/2.1279719b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6b1b639960f72859c6b3",
-    "url": "/habidatum-demo/static/js/main.08fd32e6.chunk.js"
+    "revision": "23524a5dc838bff74243",
+    "url": "/habidatum-demo/static/js/main.b9bd6ec3.chunk.js"
   },
   {
     "revision": "21082b608dcecf3803e6",
