@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/habidatum-demo/static/js/main.db10bb93.chunk.js",
-    "main.js.map": "/habidatum-demo/static/js/main.db10bb93.chunk.js.map",
+    "main.js": "/habidatum-demo/static/js/main.183c5d53.chunk.js",
+    "main.js.map": "/habidatum-demo/static/js/main.183c5d53.chunk.js.map",
     "runtime-main.js": "/habidatum-demo/static/js/runtime-main.5eac44f2.js",
     "runtime-main.js.map": "/habidatum-demo/static/js/runtime-main.5eac44f2.js.map",
-    "static/js/2.dae5e438.chunk.js": "/habidatum-demo/static/js/2.dae5e438.chunk.js",
-    "static/js/2.dae5e438.chunk.js.map": "/habidatum-demo/static/js/2.dae5e438.chunk.js.map",
+    "static/js/2.dc227d25.chunk.js": "/habidatum-demo/static/js/2.dc227d25.chunk.js",
+    "static/js/2.dc227d25.chunk.js.map": "/habidatum-demo/static/js/2.dc227d25.chunk.js.map",
     "index.html": "/habidatum-demo/index.html",
-    "precache-manifest.ca41f996d84a3ae9688137bb39d55b7f.js": "/habidatum-demo/precache-manifest.ca41f996d84a3ae9688137bb39d55b7f.js",
+    "precache-manifest.c2ce467b1b872ef4a9a497f084413af9.js": "/habidatum-demo/precache-manifest.c2ce467b1b872ef4a9a497f084413af9.js",
     "service-worker.js": "/habidatum-demo/service-worker.js",
-    "static/js/2.dae5e438.chunk.js.LICENSE.txt": "/habidatum-demo/static/js/2.dae5e438.chunk.js.LICENSE.txt"
+    "static/js/2.dc227d25.chunk.js.LICENSE.txt": "/habidatum-demo/static/js/2.dc227d25.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.5eac44f2.js",
-    "static/js/2.dae5e438.chunk.js",
-    "static/js/main.db10bb93.chunk.js"
+    "static/js/2.dc227d25.chunk.js",
+    "static/js/main.183c5d53.chunk.js"
   ]
 }
