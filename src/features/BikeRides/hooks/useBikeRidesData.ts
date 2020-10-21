@@ -11,7 +11,7 @@ const transform = createCsvTransformerFunction(bikesTransformFunctions);
 
 function fetchBikeRidesData() {
   return new Promise<ParseResult<BikeRideTransformed>>((resolve, reject) => {
-    parse<BikeRideTransformed>("/bike-rides.csv", {
+    parse<BikeRideTransformed>(`${process.env.PUBLIC_URL}/bike-rides.csv`, {
       download: true,
       dynamicTyping: true,
       complete: resolve,
