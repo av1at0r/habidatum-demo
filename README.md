@@ -19,7 +19,7 @@
 
 ## Online Demo
 
-[Habidatum Demo](https://av1at0r.github.io/habidatum-demo/)
+[Habidatum Demo](https://livyk.github.io/habidatum-demo/)
 
 ## Запуск в режиме разработки
 
@@ -35,4 +35,4 @@
 > yarn start
 ```
 
-[Telegram](https://t.me/nikita_li) | [livik.nick@gmail.com](mailto:livik.nick@gmail.com)
+[Telegram](https://t.me/livyk) | [livik.nick@gmail.com](mailto:livik.nick@gmail.com)
